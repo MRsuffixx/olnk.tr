@@ -12,14 +12,13 @@ RUN npm ci
 FROM node:24-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/frontend/node_modules ./frontend/node_modules
 COPY . .
 
-# Build the Next.js app
-WORKDIR /app/frontend
+# Build the Next.js app from the workspace root context
+WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED 1
-# Disable ESLint and TS errors during docker build to ensure it passes if locally working
-RUN npx next build
+# Disable ESLint and TS errors during docker build
+RUN npx turbo run build --filter=frontend
 
 # Stage 3: Runner
 FROM node:24-alpine AS runner
