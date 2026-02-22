@@ -19,6 +19,7 @@ COPY . .
 WORKDIR /app/backend
 RUN npx prisma generate
 RUN npm run build
+RUN npx tsc prisma/seed.ts --outDir dist/prisma --skipLibCheck --esModuleInterop || true
 
 # Stage 2: Production
 FROM node:24-alpine AS production
@@ -53,4 +54,4 @@ USER node
 EXPOSE 4000
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["node", "dist/main.js"]
+CMD ["node", "dist/src/main.js"]
