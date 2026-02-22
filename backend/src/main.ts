@@ -43,11 +43,13 @@ async function bootstrap() {
   // API prefix
   app.setGlobalPrefix('api');
 
-  const port = configService.get<number>('APP_PORT', 4000);
-  await app.listen(port);
+  const port = configService.get<number>('API_PORT') || configService.get<number>('APP_PORT', 4000);
+  
+  // Bind to 0.0.0.0 so Docker can expose the port externally
+  await app.listen(port, '0.0.0.0');
 
-  console.log(`🚀 Application running on http://localhost:${port}`);
-  console.log(`📚 API available at http://localhost:${port}/api`);
+  console.log(`🚀 Application running on port ${port} (0.0.0.0)`);
+  console.log(`📚 API available at http://0.0.0.0:${port}/api`);
 }
 
 bootstrap();
