@@ -1,0 +1,21 @@
+{
+    "name": "olnktr",
+    "version": "1.0.0",
+    "packageManager": "npm@11.6.2",
+    "private": true,
+    "workspaces": [
+        "backend",
+        "frontend"
+    ],
+    "scripts": {
+        "dev": "turbo run dev",
+        "build": "turbo run build",
+        "lint": "turbo run lint",
+        "start": "turbo run start",
+        "docker:up": "docker compose up -d --build",
+        "docker:down": "docker compose down"
+    },
+    "devDependencies": {
+        "turbo": "^2.5.0"
+    }
+}
