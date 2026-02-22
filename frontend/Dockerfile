@@ -39,7 +39,6 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder /app/frontend/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/frontend/.next/standalone/frontend/ ./
 COPY --from=builder --chown=nextjs:nodejs /app/frontend/.next/standalone/node_modules/ ./node_modules/
-COPY --from=builder --chown=nextjs:nodejs /app/frontend/.next/standalone/package.json ./
 # For Next.js App Router static assets:
 COPY --from=builder --chown=nextjs:nodejs /app/frontend/.next/static ./.next/static
 
